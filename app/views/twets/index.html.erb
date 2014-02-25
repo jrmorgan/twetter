@@ -1,11 +1,15 @@
 <div class="clearfix top-space small"></div>
 <div class="row">
 
-  <%= render :partial => 'shared/left_nav' %>
+  <%= render :partial => 'shared/left_nav', :locals => { :user => (@user || current_user) } %>
 
   <div class="panel panel-default col-md-8 text-left">
     <div class="pull-left">
+      <% if @user %>
+      <h4>Twets for <%= @user.username %></h4>
+      <% else %>
       <h4>Twets</h4>
+      <% end %>
     </div>
     <div class="clearfix"></div>
     <hr />
@@ -13,10 +17,10 @@
       <% @twets.each do |twet| -%>
       <li>
         <%= content_tag :strong, twet.user.name, :class => 'pull-left text-middle' %>
-        <%= content_tag :small, "@"+twet.user.username, :class => 'text-muted pad-10 text-middle' %>
+        <%= content_tag :small, user_profile_link(twet.user), :class => 'text-muted pad-10 text-middle' %>
         <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
         <div class="clearfix"></div>
-        <%= content_tag :p, twet.content %>
+        <%= content_tag :p, add_mention_links(twet.content) %>
       </li>
       <li><hr></li>
       <% end -%>

@@ -79,4 +79,18 @@ module ApplicationHelper
     html += content_tag :strong, flash[type]
     html.html_safe
   end
+
+  def user_profile_link(user)
+    link_to "@"+user.username, profile_path(username: user.username)
+  end
+
+  def add_mention_links(content)
+    h(content).gsub(/@\S+/m) do |match|
+      if user = User.find_by_username(match[1..-1])
+        user_profile_link(user).html_safe
+      else
+        match
+      end
+    end.html_safe
+  end
 end
