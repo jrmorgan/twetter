@@ -28,7 +28,7 @@ development:
   adapter: postgresql
   database: twetter_development
   encoding: unicode
-  user: twetter / action
+  user: twetter
   host: localhost
   pool: 5
   timeout: 5000
@@ -38,7 +38,7 @@ test:
   adapter: postgresql
   database: twetter_test
   encoding: unicode
-  user: twetter / action
+  user: twetter
   host: localhost
   pool: 5
   timeout: 5000
